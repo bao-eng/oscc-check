@@ -398,11 +398,11 @@ def main(args):
         pressure_cmd = 0.0
         modules.command_brake_module(pressure_cmd, expect='decrease')
 
-        pressure_cmd = 0.3
-        modules.command_brake_module(pressure_cmd, expect='increase')
+        #pressure_cmd = 0.3
+        #modules.command_brake_module(pressure_cmd, expect='increase')
 
-        pressure_cmd = 0.0
-        modules.command_brake_module(pressure_cmd, expect='decrease')
+        #pressure_cmd = 0.0
+        #modules.command_brake_module(pressure_cmd, expect='decrease')
 
         # Visually distinguish brake validation from the following steering wheel validation
         print("|Steering Test ------------------------------------------------------------------|")
