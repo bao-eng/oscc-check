@@ -51,8 +51,8 @@ class CanBus(object):
                 'unable to connect to CAN bus, check that hardware '
                 'is connected and that socketcan is active')
 
-        self.brake_pressure_arbitration_ids = [0x220]
-        self.steering_wheel_angle_arbitration_ids = [0x2B0]
+        self.brake_pressure_arbitration_ids = [0x17E] #vesta
+        self.steering_wheel_angle_arbitration_ids = [0x0C6] #vesta
         self.wheel_speed_arbitration_ids = [0x4B0, 0x386]
         self.vehicle = vehicle
 
@@ -230,10 +230,15 @@ class CanBus(object):
                 value /= 40
             else:
                 # Soul EV and Petrol
+		"""
                 byte1 = (msg.data[5] & 0x0F) << 8
                 byte0 = msg.data[4]
                 value = int(str(byte1 | byte0), 10)
                 value /= 10
+		"""
+		value = msg.data[4]
+		print('brake press: ', value)
+		
 
             if increase_from is not None:
                 if value > increase_from:
@@ -268,8 +273,13 @@ class CanBus(object):
 
             if msg is None:
                 continue
+	    byte8 = (msg.data[8] & 0x0F) << 8 //vesta
+            byte7 = msg.data[7]
+	    byte6 = (msg.data[6] & 0x0F) << 8
+            byte5 = msg.data[5]
+	    value = (int(str(byte8 | byte7), 10) - int(str(byte6 | byte5), 10))*0.1
 
-            value = -float(struct.unpack("=h", msg.data[:2])[0]) / 10.0
+	    #value = -float(struct.unpack("=h", msg.data[:2])[0]) / 10.0
 
             if increase_from is not None:
                 if value > increase_from:
