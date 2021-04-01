@@ -229,17 +229,10 @@ class CanBus(object):
                 value = int(str(byte1 | byte0), 10)
                 value /= 40
             else:
-                # Soul EV and Petrol
-		"""
-                byte1 = (msg.data[5] & 0x0F) << 8
-                byte0 = msg.data[4]
-                value = int(str(byte1 | byte0), 10)
-                value /= 10
-		"""
-		value = msg.data[4]
-		print('brake press: ', value)
+                # vesta
+                value = msg.data[5]
+                #print(msg.data[5])
 		
-
             if increase_from is not None:
                 if value > increase_from:
                     return Report(success=True, value=value)
@@ -273,13 +266,12 @@ class CanBus(object):
 
             if msg is None:
                 continue
-	    byte8 = (msg.data[8] & 0x0F) << 8 //vesta
-            byte7 = msg.data[7]
-	    byte6 = (msg.data[6] & 0x0F) << 8
-            byte5 = msg.data[5]
-	    value = (int(str(byte8 | byte7), 10) - int(str(byte6 | byte5), 10))*0.1
-
-	    #value = -float(struct.unpack("=h", msg.data[:2])[0]) / 10.0
+            #vesta
+            byte0 = (msg.data[0]) << 8
+            byte1 = msg.data[1]
+            byte2 = (msg.data[2]) << 8
+            byte3 = msg.data[3]
+            value = (int(str(byte0 | byte1), 10) - int(str(byte2 | byte3), 10))*0.1
 
             if increase_from is not None:
                 if value > increase_from:

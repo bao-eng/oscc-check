@@ -398,11 +398,11 @@ def main(args):
         pressure_cmd = 0.0
         modules.command_brake_module(pressure_cmd, expect='decrease')
 
-        #pressure_cmd = 0.3
-        #modules.command_brake_module(pressure_cmd, expect='increase')
+        pressure_cmd = 0.3
+        modules.command_brake_module(pressure_cmd, expect='increase')
 
-        #pressure_cmd = 0.0
-        #modules.command_brake_module(pressure_cmd, expect='decrease')
+        pressure_cmd = 0.0
+        modules.command_brake_module(pressure_cmd, expect='decrease')
 
         # Visually distinguish brake validation from the following steering wheel validation
         print("|Steering Test ------------------------------------------------------------------|")
@@ -414,10 +414,10 @@ def main(args):
         modules.command_steering_module(torque_cmd, expect=None)
 
         torque_cmd = 0.15
-        modules.command_steering_module(torque_cmd, expect='increase')
+        modules.command_steering_module(torque_cmd, expect='decrease')
 
         torque_cmd = -0.15
-        modules.command_steering_module(torque_cmd, expect='decrease')
+        modules.command_steering_module(torque_cmd, expect='increase')
 
         # Visually distinguish throttle validation from the following disable steps
         print("|Disable Modules ----------------------------------------------------------------|")
